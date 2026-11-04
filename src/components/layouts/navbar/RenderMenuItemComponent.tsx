@@ -1,12 +1,10 @@
 
-
 import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import {
-
   NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,

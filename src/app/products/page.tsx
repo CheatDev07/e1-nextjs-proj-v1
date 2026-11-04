@@ -1,8 +1,7 @@
+import { ProductCardComponent } from "@/components/products/ProductCardComponent";
 
 export default function ProductPage() {
   return (
-    <div>
-      Product Page
-    </div>
+    <ProductCardComponent/>
   )
 }
