@@ -1,8 +1,8 @@
-import { cn } from "cn";
+
 
 import { Price, PriceValue } from "@/components/products/price";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { Badge } from "@/components/ui/badge";
+
 import {
   Card,
   CardContent,
@@ -11,6 +11,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
+import { use } from "react";
+
 interface ProductPrice {
   regular: number;
   sale?: number;
@@ -18,103 +20,27 @@ interface ProductPrice {
 }
 
 interface Product {
-  name: string;
-  image: {
-    src: string;
-    alt: string;
-  };
-  link: string;
+  title: string;
+  images: string[];
   description: string;
   price: ProductPrice;
-  badge?: {
-    text: string;
-    color?: string;
-  };
 }
 
 type ProductCardProps = Product;
 
-type ProductList = Array<Product>;
 
-const PRODUCTS_LIST: ProductList = [
+const ProductCardComponent = (
   {
-    name: "Vexon CoreStep '08 LX",
-    image: {
-      src: "https://cdn.shadcnblocks.com/shadcnblocks/block/ecommerce/clothes/joshua-diaz-ETNoDLl8yFE-unsplash-1.jpg",
-      alt: "",
-    },
-    link: "#",
-    description:
-      "Everyday comfort meets bold tri-color style in this performance-driven design.",
-    price: {
-      regular: 499.0,
-      sale: 399.0,
-      currency: "USD",
-    },
-    badge: {
-      text: "Selling fast!",
-      color: "oklch(57.7% 0.245 27.325)",
-    },
-  },
-  {
-    name: "Vexon CoreStep '08 LX",
-    image: {
-      src: "https://cdn.shadcnblocks.com/shadcnblocks/block/ecommerce/clothes/joshua-diaz-ETNoDLl8yFE-unsplash-1.jpg",
-      alt: "",
-    },
-    link: "#",
-    description:
-      "Everyday comfort meets bold tri-color style in this performance-driven design.",
-    price: {
-      regular: 499.0,
-      sale: 399.0,
-      currency: "USD",
-    },
-    badge: {
-      text: "Selling fast!",
-      color: "oklch(57.7% 0.245 27.325)",
-    },
-  },
-  {
-    name: "Urban Chill Jacket",
-    image: {
-      src: "https://cdn.shadcnblocks.com/shadcnblocks/block/ecommerce/clothes/pexels-cottonbro-6764040-2.jpg",
-      alt: "",
-    },
-    link: "#",
-    description:
-      "A denim puffer with tonal blues, perfect for layering across seasons.",
-    price: {
-      regular: 180.0,
-      currency: "USD",
-    },
-  },
-  {
-    name: "Maison Liora Bag",
-    image: {
-      src: "https://cdn.shadcnblocks.com/shadcnblocks/block/ecommerce/clothes/Woman-with-Tote-Bag-1.png",
-      alt: "",
-    },
-    link: "#",
-    description:
-      "A refined bag that easily switches from shoulder to crossbody or top-handle.",
-    price: {
-      regular: 420.0,
-      currency: "USD",
-    },
-    badge: {
-      text: "New",
-    },
-  },
-];
+    posts,
+  }: {
+    posts: Promise<Product[]>
+  }
+) => {
 
-interface ProductCardComponentProps {
-  className?: string;
-}
+  const PRODUCTS_LIST = use(posts)
 
-const ProductCardComponent = ({ className }: ProductCardComponentProps) => {
   return (
-    <section className={cn("py-32", className)}>
+    <section>
       <div className="container">
         <div className="grid place-items-center gap-6 md:grid-cols-2 xl:grid-cols-3">
           {PRODUCTS_LIST.map((item, index) => (
@@ -127,18 +53,18 @@ const ProductCardComponent = ({ className }: ProductCardComponentProps) => {
 };
 
 const ProductCard = ({
-  name,
+  title,
   description,
-  link,
-  image,
-  badge,
+  // link,
+  images,
+  // badge,
   price,
 }: ProductCardProps) => {
   const { regular, sale, currency } = price;
 
   return (
     <a
-      href={link}
+      href={'/'} // homepage
       className="block h-full w-full max-w-md transition-opacity hover:opacity-80"
     >
       <Card className="h-full overflow-hidden p-0">
@@ -147,24 +73,15 @@ const ProductCard = ({
             <Image
               width={500}
               height={500}
-              src={image.src}
-              alt={image.alt}
+              src={images[0]}
+              alt={title}
               className="block size-full object-cover object-center"
             />
           </AspectRatio>
-          {badge && (
-            <Badge
-              style={{
-                backgroundColor: badge.color,
-              }}
-              className="absolute inset-s-4 top-4"
-            >
-              {badge.text}
-            </Badge>
-          )}
+
         </CardHeader>
         <CardContent className="flex h-full flex-col gap-4 pb-6">
-          <CardTitle className="text-xl font-semibold">{name}</CardTitle>
+          <CardTitle className="text-xl font-semibold">{title}</CardTitle>
           <CardDescription className="font-medium text-muted-foreground">
             {description}
           </CardDescription>

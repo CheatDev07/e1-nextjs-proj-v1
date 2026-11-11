@@ -17,6 +17,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'cdn.shadcnblocks.com'
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.dummyjson.com'
+      },
     ],
   },
 };
