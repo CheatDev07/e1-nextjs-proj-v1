@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
+import Link from "next/link";
 import { use } from "react";
 
 interface ProductPrice {
@@ -20,10 +21,11 @@ interface ProductPrice {
 }
 
 interface Product {
+  id?: number;
   title: string;
   images: string[];
   description: string;
-  price: ProductPrice;
+  price: number;
 }
 
 type ProductCardProps = Product;
@@ -44,7 +46,10 @@ const ProductCardComponent = (
       <div className="container">
         <div className="grid place-items-center gap-6 md:grid-cols-2 xl:grid-cols-3">
           {PRODUCTS_LIST.map((item, index) => (
-            <ProductCard key={`product-list-1-card-${index}`} {...item} />
+            <Link key={`product-list-1-card-${index}`} href={`/products/${item.id}`}>
+              <ProductCard  {...item} />
+            </Link>
+           
           ))}
         </div>
       </div>
@@ -60,13 +65,9 @@ const ProductCard = ({
   // badge,
   price,
 }: ProductCardProps) => {
-  const { regular, sale, currency } = price;
 
   return (
-    <a
-      href={'/'} // homepage
-      className="block h-full w-full max-w-md transition-opacity hover:opacity-80"
-    >
+
       <Card className="h-full overflow-hidden p-0">
         <CardHeader className="relative block p-0">
           <AspectRatio ratio={1.268115942} className="overflow-hidden">
@@ -86,18 +87,12 @@ const ProductCard = ({
             {description}
           </CardDescription>
           <div className="mt-auto">
-            <Price onSale={sale != null} className="text-lg font-semibold">
-              <PriceValue price={sale} currency={currency} variant="sale" />
-              <PriceValue
-                price={regular}
-                currency={currency}
-                variant="regular"
-              />
-            </Price>
+              <PriceValue price={price}  variant="sale" className="text-xl font-bold text-red-500" />
+              
           </div>
         </CardContent>
       </Card>
-    </a>
+
   );
 };
 

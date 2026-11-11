@@ -14,7 +14,7 @@ interface PriceProps {
 }
 
 interface PriceValueProps {
-  price?: number;
+  price: number;
   currency?: string;
   variant?: "regular" | "sale";
   className?: string;
