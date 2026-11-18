@@ -1,8 +1,8 @@
-import DemoComponent from "../../components/DemoComponent";
+import { ProductCardComponentRouteHandler } from "@/components/products/route-handler/ProductCardComponent";
 
 export default async function DemoPage() {
 
  return (
-  <DemoComponent/>
+  <ProductCardComponentRouteHandler/>
  )
 }
